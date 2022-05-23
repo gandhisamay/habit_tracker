@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_app/constants/constants.dart';
+import 'package:habit_app/screens/dashboard/dashboard.dart';
 
 class PersonalDetailsScreen extends StatelessWidget {
   static const routeName = '/personal-details';
@@ -66,7 +67,16 @@ class PersonalDetailsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: su.setHeight(300),
+                ),
                 GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      DashboardScreen.routeName,
+                    );
+                  },
                   child: Container(
                     width: ScreenUtil().setWidth(273),
                     height: ScreenUtil().setHeight(56),
@@ -79,7 +89,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                         "Get Started",
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 24 * su.textScaleFactor,
+                          fontSize: 16 * su.textScaleFactor,
                         ),
                       ),
                     ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_app/screens/login/widgets/sign_in_button.dart';
 import 'package:habit_app/screens/onboarding/personal_details.dart';
+import 'package:habit_app/services/auth.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -37,9 +38,14 @@ class LoginScreen extends StatelessWidget {
             SignInButton(
               signInType: "Sign In with Google",
               imageLocation: "assets/images/google.png",
-              onPressed: () {
-                Navigator.pushReplacementNamed(
-                    context, PersonalDetailsScreen.routeName);
+              onPressed: () async {
+                try {
+                  await Authentication().signInWithGoogle(context: context);
+                  Navigator.pushReplacementNamed(
+                      context, PersonalDetailsScreen.routeName);
+                } catch (_) {
+                  print(_);
+                }
               },
             )
           ],

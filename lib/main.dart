@@ -1,15 +1,26 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_app/constants/constants.dart';
+import 'package:habit_app/screens/dashboard/dashboard.dart';
 import 'package:habit_app/screens/detailed/details.dart';
 import 'package:habit_app/screens/login/login.dart';
 import 'package:habit_app/screens/onboarding/personal_details.dart';
-import 'package:intl/intl.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  );
+  return runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  // precacheImage()
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -37,6 +48,7 @@ class MyApp extends StatelessWidget {
             routes: {
               PersonalDetailsScreen.routeName: (context) =>
                   PersonalDetailsScreen(),
+              DashboardScreen.routeName: (context) => DashboardScreen(),
               DetailsScreen.routeName: (context) => DetailsScreen(),
             },
           );

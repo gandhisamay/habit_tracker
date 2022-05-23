@@ -103,7 +103,6 @@ class DetailsScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(height: 35),
                     Container(
                       color: Colors.grey[500],
                       height: 1.0,

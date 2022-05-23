@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-
 List<Map<String, dynamic>> habits = [
   {
     'color': Colors.blue,
@@ -37,8 +36,8 @@ List<Map<String, dynamic>> habits2 = [
   },
 ];
 
-
-class Home extends StatelessWidget {
+class DashboardScreen extends StatelessWidget {
+  static const routeName = '/dashboard';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
