@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Details extends StatelessWidget {
+  static const routeName = '/details';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -118,7 +119,11 @@ class Details extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                f == 0 ? "Repeat" : f==1? "Streak" : "Best",
+                                f == 0
+                                    ? "Repeat"
+                                    : f == 1
+                                        ? "Streak"
+                                        : "Best",
                                 style: TextStyle(
                                   color: Colors.grey[500],
                                   fontSize: 17,
@@ -126,7 +131,11 @@ class Details extends StatelessWidget {
                               ),
                               SizedBox(height: 9),
                               Text(
-                                f == 0 ? "Every Day" : f==1? "8 Days" : "11 Days",
+                                f == 0
+                                    ? "Every Day"
+                                    : f == 1
+                                        ? "8 Days"
+                                        : "11 Days",
                                 style: TextStyle(
                                   fontSize: 19,
                                   fontWeight: FontWeight.bold,
