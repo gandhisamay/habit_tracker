@@ -50,7 +50,6 @@ class SignInButton extends StatelessWidget {
                         child: Text(
                           signInType,
                           style: TextStyle(
-                            // fontSize: 16 * scale,
                             color: Colors.black,
                           ),
                         ),

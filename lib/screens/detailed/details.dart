@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Details extends StatelessWidget {
+class DetailsScreen extends StatelessWidget {
   static const routeName = '/details';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xff131b26),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

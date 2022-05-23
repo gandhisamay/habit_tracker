@@ -35,7 +35,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   intl:
   flutter_screenutil: ^5.5.3+2
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -77,21 +77,16 @@ flutter:
           weight: 100
         - asset: assets/fonts/Raleway/Raleway-Bold.ttf
           weight: 700
-    - family: Montserrat
+
+    - family: Poppins
       fonts:
-        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
-        - asset: assets/fonts/Montserrat/Montserrat-Light.ttf
-          weight: 100
-        - asset: assets/fonts/Montserrat/Montserrat-Bold.ttf
+        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins/Poppins-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Poppins/Poppins-Bold.ttf
           weight: 700
 
-    - family: Lato
-      fonts:
-        - asset: assets/fonts/Lato/Lato-Regular.ttf
-        - asset: assets/fonts/Lato/Lato-Light.ttf
-          weight: 100
-        - asset: assets/fonts/Lato/Lato-Bold.ttf
-          weight: 700
+    
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

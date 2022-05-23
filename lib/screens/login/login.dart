@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_app/screens/login/widgets/sign_in_button.dart';
+import 'package:habit_app/screens/onboarding/personal_details.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -9,7 +10,6 @@ class LoginScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xff131b26),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -33,13 +33,14 @@ class LoginScreen extends StatelessWidget {
                 width: su.setWidth(250),
               ),
             ),
-            SizedBox(
-              height: su.setHeight(100)
-            ),
+            SizedBox(height: su.setHeight(100)),
             SignInButton(
               signInType: "Sign In with Google",
               imageLocation: "assets/images/google.png",
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacementNamed(
+                    context, PersonalDetailsScreen.routeName);
+              },
             )
           ],
         ),
