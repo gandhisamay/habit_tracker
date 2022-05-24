@@ -1,12 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_app/constants/constants.dart';
 import 'package:habit_app/screens/dashboard/dashboard.dart';
 import 'package:habit_app/screens/detailed/details.dart';
 import 'package:habit_app/screens/login/login.dart';
 import 'package:habit_app/screens/onboarding/personal_details.dart';
+import 'package:habit_app/screens/splash%20screen/splash_screen.dart';
+import 'package:habit_app/shared/wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +18,11 @@ void main() async {
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
-  return runApp(MyApp());
+  return runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -44,7 +51,7 @@ class MyApp extends StatelessWidget {
               primaryColor: Colors.white,
               scaffoldBackgroundColor: scaffoldColor,
             ),
-            home: LoginScreen(),
+            home: Wrapper(),
             routes: {
               PersonalDetailsScreen.routeName: (context) =>
                   PersonalDetailsScreen(),

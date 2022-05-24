@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_app/constants/constants.dart';
+import 'package:habit_app/database/db_service.dart';
+import 'package:habit_app/providers/auth_provider.dart';
 import 'package:habit_app/screens/dashboard/dashboard.dart';
+import 'package:habit_app/services/auth.dart';
+import 'package:habit_app/shared/functions.dart';
 
-class PersonalDetailsScreen extends StatelessWidget {
+class PersonalDetailsScreen extends ConsumerWidget {
   static const routeName = '/personal-details';
   final su = ScreenUtil();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final detailsMap = ref.watch(personalDetails);
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -37,6 +43,10 @@ class PersonalDetailsScreen extends StatelessWidget {
                           child: TextFormField(
                             decoration: inputDecoration,
                             cursorColor: Colors.white,
+                            style: TextStyle(color: Colors.white),
+                            onChanged: (val) {
+                              addDetails(detailsMap, firstName, val);
+                            },
                           ),
                         ),
                         SizedBox(
@@ -48,7 +58,11 @@ class PersonalDetailsScreen extends StatelessWidget {
                             decoration: inputDecoration.copyWith(
                               labelText: "Last Name",
                             ),
+                            style: TextStyle(color: Colors.white),
                             cursorColor: Colors.white,
+                            onChanged: (val) {
+                              addDetails(detailsMap, lastName, val);
+                            },
                           ),
                         ),
                         SizedBox(
@@ -61,6 +75,10 @@ class PersonalDetailsScreen extends StatelessWidget {
                                 inputDecoration.copyWith(labelText: "Age"),
                             cursorColor: Colors.white,
                             keyboardType: TextInputType.number,
+                            style: TextStyle(color: Colors.white),
+                            onChanged: (val) {
+                              addDetails(detailsMap, age, val);
+                            },
                           ),
                         ),
                       ],
@@ -71,11 +89,17 @@ class PersonalDetailsScreen extends StatelessWidget {
                   height: su.setHeight(300),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      DashboardScreen.routeName,
-                    );
+                  onTap: () async {
+                    try {
+                      await DBService().addNewUser(
+                          detailsMap, Authentication().currentUser!.uid);
+                      Navigator.pushReplacementNamed(
+                        context,
+                        DashboardScreen.routeName,
+                      );
+                    } catch (_) {
+                      print(_);
+                    }
                   },
                   child: Container(
                     width: ScreenUtil().setWidth(273),

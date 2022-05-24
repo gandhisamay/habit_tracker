@@ -13,3 +13,7 @@ const InputDecoration inputDecoration = InputDecoration(
     color: Colors.white,
   ),
 );
+
+const String firstName = "firstName";
+const String lastName = "lastName";
+const String age = "age";
