@@ -14,7 +14,7 @@ class SignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scale = ScreenUtil().textScaleFactor;
+    final scale = ScreenUtil().scaleText;
     return Container(
       width: ScreenUtil().setWidth(273),
       height: ScreenUtil().setHeight(56),

@@ -17,3 +17,4 @@ const InputDecoration inputDecoration = InputDecoration(
 const String firstName = "firstName";
 const String lastName = "lastName";
 const String age = "age";
+const String uid = "uid";

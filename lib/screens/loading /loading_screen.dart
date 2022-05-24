@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SplashScreen extends StatefulWidget {
+class LoadingScreen extends StatefulWidget {
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<LoadingScreen> createState() => _LoadingScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _LoadingScreenState extends State<LoadingScreen>
     with SingleTickerProviderStateMixin {
   final su = ScreenUtil();
   late AnimationController _animationController;
@@ -43,8 +43,8 @@ class _SplashScreenState extends State<SplashScreen>
                 borderRadius: BorderRadius.circular(15),
                 child: Image.asset(
                   "assets/images/habit.jpg",
-                  height: su.setWidth(250 * _animationController.value),
-                  width: su.setWidth(250 * _animationController.value),
+                  height: su.setWidth(150 * _animationController.value),
+                  width: su.setWidth(150 * _animationController.value),
                 ),
               ),
             );
