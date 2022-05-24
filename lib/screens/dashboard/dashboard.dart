@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_app/screens/form%20screen/form_screen.dart';
 import 'package:intl/intl.dart';
 
 List<Map<String, dynamic>> habits = [
@@ -76,7 +77,10 @@ class DashboardScreen extends StatelessWidget {
                   Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, NewHabitFormScreen.routeName);
+                      },
                       child: Container(
                         padding: EdgeInsets.all(9.0),
                         decoration: BoxDecoration(
