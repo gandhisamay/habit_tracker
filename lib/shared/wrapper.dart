@@ -20,8 +20,8 @@ class Wrapper extends ConsumerWidget {
         return LoginScreen();
       } else {
         //Check if user doc exists or not
-        final detailsMap = ref.watch(personalDetails);
-        addDetails(detailsMap, uid, _auth.value!.uid);
+        final user = ref.watch(userProvider);
+        user.uid = _auth.value!.uid;
         final doc = ref.watch(docProvider);
 
         return doc.when(data: (exists) {

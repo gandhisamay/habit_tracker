@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 const Color scaffoldColor = Color(0xff131b26);
+final Color opaciousGrey = Colors.grey.withOpacity(0.3);
 
 const InputDecoration inputDecoration = InputDecoration(
-  labelText: "First Name",
   border: InputBorder.none,
   focusedBorder: InputBorder.none,
   enabledBorder: InputBorder.none,
@@ -13,8 +13,3 @@ const InputDecoration inputDecoration = InputDecoration(
     color: Colors.white,
   ),
 );
-
-const String firstName = "firstName";
-const String lastName = "lastName";
-const String age = "age";
-const String uid = "uid";
