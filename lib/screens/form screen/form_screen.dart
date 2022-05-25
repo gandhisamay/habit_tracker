@@ -18,15 +18,12 @@ class NewHabitFormScreen extends StatefulWidget {
 
 class _NewHabitFormScreenState extends State<NewHabitFormScreen> {
   final su = ScreenUtil();
-  bool isLoading = false;
   Habit habit = Habit();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: isLoading
-          ? Loader()
-          : Scaffold(
+      child: Scaffold(
               body: SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
@@ -89,9 +86,6 @@ class _NewHabitFormScreenState extends State<NewHabitFormScreen> {
                         final user = ref.watch(userProvider);
                         return GestureDetector(
                           onTap: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
                             await DBService().addNewHabit(habit, user);
                             Navigator.pushReplacementNamed(
                               context,

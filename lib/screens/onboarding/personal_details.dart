@@ -17,15 +17,12 @@ class PersonalDetailsScreen extends StatefulWidget {
 
 class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
   final su = ScreenUtil();
-  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: isLoading
-            ? Loader()
-            : SingleChildScrollView(
+        body: SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: su.setWidth(30),
