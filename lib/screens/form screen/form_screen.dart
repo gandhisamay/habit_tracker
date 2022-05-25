@@ -24,98 +24,136 @@ class _NewHabitFormScreenState extends State<NewHabitFormScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-              body: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: su.setWidth(30),
-                    vertical: su.setHeight(50),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: su.setWidth(30),
+              vertical: su.setHeight(50),
+            ),
+            child: Column(
+              children: [
+                Text(
+                  "Add a new habit",
+                  style: TextStyle(
+                    fontSize: 24 * su.scaleText,
                   ),
-                  child: Column(
-                    children: [
-                      Text(
-                        "Add a new habit",
-                        style: TextStyle(
-                          fontSize: 24 * su.scaleText,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: su.setHeight(30),
-                        ),
-                        child: Consumer(builder: (context, ref, ch) {
-                          return Form(
-                            child: Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: TextFormField(
-                                    decoration: inputDecoration.copyWith(
-                                        labelText: "Title"),
-                                    cursorColor: Colors.white,
-                                    style: TextStyle(color: Colors.white),
-                                    onChanged: (val) {
-                                      habit.title = val;
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: su.setHeight(20),
-                                ),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: TextFormField(
-                                    decoration: inputDecoration.copyWith(
-                                        labelText: "Num of days"),
-                                    cursorColor: Colors.white,
-                                    keyboardType: TextInputType.number,
-                                    style: TextStyle(color: Colors.white),
-                                    onChanged: (val) {
-                                      habit.numOfDays = int.parse(val);
-                                    },
-                                  ),
-                                ),
-                              ],
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: su.setHeight(30),
+                  ),
+                  child: Consumer(builder: (context, ref, ch) {
+                    return Form(
+                      child: Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: TextFormField(
+                              decoration:
+                                  inputDecoration.copyWith(labelText: "Title"),
+                              cursorColor: Colors.white,
+                              style: TextStyle(color: Colors.white),
+                              onChanged: (val) {
+                                habit.title = val;
+                              },
                             ),
-                          );
-                        }),
-                      ),
-                      SizedBox(
-                        height: su.setHeight(400),
-                      ),
-                      Consumer(builder: (context, ref, ch) {
-                        final user = ref.watch(userProvider);
-                        return GestureDetector(
-                          onTap: () async {
-                            await DBService().addNewHabit(habit, user);
-                            Navigator.pushReplacementNamed(
-                              context,
-                              DashboardScreen.routeName,
-                            );
-                          },
-                          child: Container(
-                            width: ScreenUtil().setWidth(273),
-                            height: ScreenUtil().setHeight(56),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.white,
+                          ),
+                          SizedBox(
+                            height: su.setHeight(20),
+                          ),
+                          Text(
+                            "Repeat",
+                            style: TextStyle(
+                              fontSize: 16 * su.scaleText,
                             ),
-                            child: Center(
-                              child: Text(
-                                "Add Habit",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16 * su.scaleText,
-                                ),
-                              ),
+                          ),
+                          Container(
+                            height: su.setHeight(450),
+                            child: ListView.builder(
+                              itemCount: daysInWeek.length,
+                              itemBuilder: (ctx, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    print(habit.days);
+                                    if (habit.days.contains(index + 1)) {
+                                      habit.days.remove(index + 1);
+                                    } else {
+                                      habit.days.add(index + 1);
+                                    }
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: su.setHeight(5)),
+                                    width: double.infinity,
+                                    height: su.setHeight(60),
+                                    decoration: BoxDecoration(
+                                        color: habit.days.contains(index + 1)
+                                            ? opaciousGrey
+                                            : weekDayColor,
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    child:
+                                        Center(child: Text(daysInWeek[index])),
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  }),
+                ),
+                Consumer(builder: (context, ref, ch) {
+                  final user = ref.watch(userProvider);
+                  return GestureDetector(
+                    onTap: () async {
+                      if (habit.days.isEmpty) {
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(
+                          const SnackBar(
+                            duration: Duration(
+                              milliseconds: 800,
+                            ),
+                            content: Text(
+                              'You need to select atleast one day',
                             ),
                           ),
                         );
-                      })
-                    ],
-                  ),
-                ),
-              ),
+                      } else {
+                        await DBService().addNewHabit(habit, user);
+                        Navigator.pushReplacementNamed(
+                          context,
+                          DashboardScreen.routeName,
+                        );
+                      }
+                    },
+                    child: Container(
+                      width: ScreenUtil().setWidth(273),
+                      height: ScreenUtil().setHeight(56),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Add Habit",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16 * su.scaleText,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                })
+              ],
             ),
+          ),
+        ),
+      ),
     );
   }
 }

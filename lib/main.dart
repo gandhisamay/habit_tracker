@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
               primaryColor: Colors.white,
               scaffoldBackgroundColor: scaffoldColor,
             ),
-            home: PersonalDetailsScreen(),
+            home: Wrapper(),
             routes: {
               PersonalDetailsScreen.routeName: (context) =>
                   PersonalDetailsScreen(),
