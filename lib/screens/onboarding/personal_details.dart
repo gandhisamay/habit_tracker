@@ -5,6 +5,7 @@ import 'package:habit_app/constants/constants.dart';
 import 'package:habit_app/database/db_service.dart';
 import 'package:habit_app/providers/auth_provider.dart';
 import 'package:habit_app/screens/dashboard/dashboard.dart';
+import 'package:habit_app/screens/form%20screen/form_screen.dart';
 import 'package:habit_app/shared/widgets/loading.dart';
 
 class PersonalDetailsScreen extends StatefulWidget {
@@ -104,9 +105,6 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                         final user = ref.watch(userProvider);
                         return GestureDetector(
                           onTap: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
                             await DBService().addNewUser(user);
                             Navigator.of(context).pushReplacementNamed(
                                 DashboardScreen.routeName);
