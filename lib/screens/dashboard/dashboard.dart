@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:habit_app/providers/habit_provider.dart';
 import 'package:habit_app/screens/dashboard/widgets/habit_card.dart';
 import 'package:habit_app/screens/form%20screen/form_screen.dart';
+import 'package:habit_app/shared/widgets/loading.dart';
 import 'package:intl/intl.dart';
 
-List<Map<String, dynamic>> habits = [
+List<Map<String, dynamic>> habits1 = [
   {
     'color': Colors.blue,
     'title': 'YP',
@@ -40,26 +44,31 @@ List<Map<String, dynamic>> habits2 = [
 
 class DashboardScreen extends StatelessWidget {
   static const routeName = '/dashboard';
+  final su = ScreenUtil();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          padding: EdgeInsets.only(top: 25.0, left: 25.0),
+        body: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: su.setWidth(30),
+            vertical: su.setHeight(30),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Row(
                 children: <Widget>[
                   Text(
-                    "Today's Tasks",
+                    "Today's Habits",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       fontSize: 25,
                     ),
                   ),
+                  Spacer(),
                   Material(
                     color: Colors.transparent,
                     child: InkWell(
@@ -86,72 +95,17 @@ class DashboardScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 25.0,
-                  )
                 ],
               ),
               SizedBox(
-                height: 35.0,
+                height: su.setHeight(35),
               ),
               Container(
-                height: 150,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: habits.length,
-                  itemBuilder: (ctx, id) {
-                    return Container(
-                      width: 150,
-                      margin:
-                          EdgeInsets.only(right: 15.0, top: 9.0, bottom: 9.0),
-                      padding: EdgeInsets.all(13.0),
-                      decoration: BoxDecoration(
-                        color: habits[id]['color'],
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: habits[id]['color'],
-                            blurRadius: 5.0,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            habits[id]['title'],
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 27,
-                                color: Colors.white),
-                          ),
-                          Text(
-                            habits[id]['fulltext'],
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-              SizedBox(
-                height: 35.0,
-              ),
-              Container(
-                height: 90,
+                height: su.setHeight(90),
+                width: double.infinity,
                 decoration: BoxDecoration(
                   color: Color(0xff1b232e),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    bottomLeft: Radius.circular(15),
-                  ),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 padding: EdgeInsets.all(15),
                 child: ListView.builder(
@@ -161,9 +115,9 @@ class DashboardScreen extends StatelessWidget {
                     int day = DateTime.now().day + f;
                     return FittedBox(
                       child: Container(
-                        width: 90,
-                        height: 90,
-                        margin: EdgeInsets.only(right: 15.0),
+                        width: su.setWidth(90),
+                        height: su.setHeight(90),
+                        margin: EdgeInsets.only(right: su.setWidth(15)),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: day == DateTime.now().day
@@ -171,14 +125,14 @@ class DashboardScreen extends StatelessWidget {
                               : Color(0xff131b26),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
-                        padding: EdgeInsets.all(15.0),
+                        padding: EdgeInsets.all(su.setWidth(10)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
                               "${DateTime.now().day + f}",
                               style: TextStyle(
-                                fontSize: 25,
+                                fontSize: 20 * su.scaleText,
                                 fontWeight: day == DateTime.now().day
                                     ? FontWeight.bold
                                     : FontWeight.normal,
@@ -208,38 +162,24 @@ class DashboardScreen extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(
-                height: 35.0,
-              ),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Your Habits ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 21,
-                      ),
-                    ),
-                    TextSpan(
-                      text: " 5",
-                      style: TextStyle(
-                        color: Colors.grey.shade500,
-                        fontSize: 21,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               // HabitCard(id: 1,)
-              Expanded(
-                child: ListView.builder(
-                  itemCount: habits2.length,
-                  itemBuilder: (ctx, id) {
-                    return HabitCard(id: id);
-                  },
-                ),
-              )
+              Expanded(child: Consumer(builder: (context, ref, ch) {
+                final _habitStream = ref.watch(habitsStreamProvider);
+                return _habitStream.when(data: (habits) {
+                  return ListView.builder(
+                    itemCount: habits.length,
+                    itemBuilder: (ctx, index) {
+                      return HabitCard(habit: habits[index]);
+                    },
+                  );
+                }, loading: () {
+                  return Loader();
+                }, error: (_, st) {
+                  print(_);
+                  print(st);
+                  return Container();
+                });
+              }))
             ],
           ),
         ),

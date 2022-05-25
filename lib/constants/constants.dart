@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 const Color scaffoldColor = Color(0xff131b26);
 final Color opaciousGrey = Colors.grey.withOpacity(0.3);
 final Color weekDayColor = Colors.grey.withOpacity(0.05);
+const Color darkPurple = Color(0xff7524ff);
+const Color cyan = Color(0xff00d5e2);
 
 const InputDecoration inputDecoration = InputDecoration(
   border: InputBorder.none,

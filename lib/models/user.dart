@@ -5,7 +5,6 @@ class CUser {
   String? firstName;
   String? lastName;
   int? age;
-  List<Habit> habits = [];
 
   CUser();
 
@@ -15,7 +14,6 @@ class CUser {
       'firstName': firstName,
       'lastName': lastName,
       'age': age,
-      'habits': habits
     };
   }
 
@@ -26,7 +24,6 @@ class CUser {
     user.firstName = map["firstName"];
     user.lastName = map["lastName"];
     user.age = map["age"];
-    user.habits = map["habits"];
 
     return user;
   }
