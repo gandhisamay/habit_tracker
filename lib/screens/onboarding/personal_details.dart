@@ -3,12 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_app/constants/constants.dart';
 import 'package:habit_app/database/db_service.dart';
-import 'package:habit_app/models/user.dart';
 import 'package:habit_app/providers/auth_provider.dart';
 import 'package:habit_app/screens/dashboard/dashboard.dart';
-import 'package:habit_app/screens/loading%20/loading_screen.dart';
-import 'package:habit_app/services/auth.dart';
-import 'package:habit_app/shared/functions.dart';
+import 'package:habit_app/shared/widgets/loading.dart';
 
 class PersonalDetailsScreen extends StatefulWidget {
   static const routeName = '/personal-details';
@@ -24,10 +21,10 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: isLoading
-          ? LoadingScreen()
-          : Scaffold(
-              body: SingleChildScrollView(
+      child: Scaffold(
+        body: isLoading
+            ? Loader()
+            : SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: su.setWidth(30),
@@ -111,10 +108,8 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                               isLoading = true;
                             });
                             await DBService().addNewUser(user);
-                            Navigator.pushReplacementNamed(
-                              context,
-                              DashboardScreen.routeName,
-                            );
+                            Navigator.of(context).pushReplacementNamed(
+                                DashboardScreen.routeName);
                           },
                           child: Container(
                             width: ScreenUtil().setWidth(273),
@@ -139,7 +134,7 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                   ),
                 ),
               ),
-            ),
+      ),
     );
   }
 }

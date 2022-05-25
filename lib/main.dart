@@ -7,9 +7,9 @@ import 'package:habit_app/constants/constants.dart';
 import 'package:habit_app/screens/dashboard/dashboard.dart';
 import 'package:habit_app/screens/detailed/details.dart';
 import 'package:habit_app/screens/form%20screen/form_screen.dart';
-import 'package:habit_app/screens/loading%20/loading_screen.dart';
 import 'package:habit_app/screens/login/login.dart';
 import 'package:habit_app/screens/onboarding/personal_details.dart';
+import 'package:habit_app/screens/splash%20screen/splash_screen.dart';
 import 'package:habit_app/shared/wrapper.dart';
 
 void main() async {
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
               primaryColor: Colors.white,
               scaffoldBackgroundColor: scaffoldColor,
             ),
-            home: Wrapper(),
+            home: PersonalDetailsScreen(),
             routes: {
               PersonalDetailsScreen.routeName: (context) =>
                   PersonalDetailsScreen(),

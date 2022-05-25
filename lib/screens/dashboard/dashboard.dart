@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_app/screens/dashboard/widgets/habit_card.dart';
 import 'package:habit_app/screens/form%20screen/form_screen.dart';
 import 'package:intl/intl.dart';
 
@@ -39,6 +40,7 @@ List<Map<String, dynamic>> habits2 = [
 
 class DashboardScreen extends StatelessWidget {
   static const routeName = '/dashboard';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -50,28 +52,12 @@ class DashboardScreen extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Expanded(
-                    child: RichText(
-                      softWrap: true,
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "Most Popular",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 25,
-                            ),
-                          ),
-                          TextSpan(
-                            text: " Habits",
-                            style: TextStyle(
-                              fontSize: 25,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
+                  Text(
+                    "Today's Tasks",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 25,
                     ),
                   ),
                   Material(
@@ -198,7 +184,7 @@ class DashboardScreen extends StatelessWidget {
                                     : FontWeight.normal,
                                 color: day == DateTime.now().day
                                     ? Colors.white
-                                    : Colors.grey[500],
+                                    : Colors.grey.shade500,
                               ),
                             ),
                             Text(
@@ -238,97 +224,24 @@ class DashboardScreen extends StatelessWidget {
                     TextSpan(
                       text: " 5",
                       style: TextStyle(
-                        color: Colors.grey[500],
+                        color: Colors.grey.shade500,
                         fontSize: 21,
                       ),
                     ),
                   ],
                 ),
               ),
-              // ListItem(id: 1,)
+              // HabitCard(id: 1,)
               Expanded(
                 child: ListView.builder(
                   itemCount: habits2.length,
                   itemBuilder: (ctx, id) {
-                    return ListItem(id: id);
+                    return HabitCard(id: id);
                   },
                 ),
               )
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class ListItem extends StatelessWidget {
-  final int id;
-
-  ListItem({required this.id});
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, '/details');
-      },
-      child: Container(
-        // height: 150,
-        margin: EdgeInsets.symmetric(vertical: 21.0),
-        padding: EdgeInsets.only(right: 25.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(5.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: id == 0 ? habits2[id]['color'] : Colors.transparent,
-                    border: id == 0
-                        ? Border()
-                        : Border.all(
-                            color: Colors.grey[500]!,
-                          ),
-                  ),
-                  child: Icon(
-                    Icons.check,
-                    color: id == 0 ? Colors.white : Colors.grey[500],
-                  ),
-                ),
-                SizedBox(width: 15),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      habits2[id]['objectif'],
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 19),
-                    ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Text(
-                      habits2[id]['progress'],
-                      style: TextStyle(color: Colors.grey[500], fontSize: 17),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                  ],
-                )
-              ],
-            ),
-            LinearProgressIndicator(
-              value: .71,
-              backgroundColor: Color(0xff1c232d),
-              valueColor: AlwaysStoppedAnimation(
-                habits2[id]['color'],
-              ),
-            ),
-          ],
         ),
       ),
     );

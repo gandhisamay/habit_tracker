@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LoadingScreen extends StatefulWidget {
+class SplashScreen extends StatefulWidget {
   @override
-  State<LoadingScreen> createState() => _LoadingScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _LoadingScreenState extends State<LoadingScreen>
+class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   final su = ScreenUtil();
   late AnimationController _animationController;

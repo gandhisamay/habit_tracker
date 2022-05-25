@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:habit_app/screens/loading%20/loading_screen.dart';
 import 'package:habit_app/screens/login/widgets/sign_in_button.dart';
 import 'package:habit_app/screens/onboarding/personal_details.dart';
 import 'package:habit_app/services/auth.dart';
+import 'package:habit_app/shared/widgets/loading.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return SafeArea(
       child: isLoading
-          ? LoadingScreen()
+          ? Loader()
           : Scaffold(
               body: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -54,8 +54,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                         await Authentication()
                             .signInWithGoogle(context: context);
-                        Navigator.pushReplacementNamed(
-                            context, PersonalDetailsScreen.routeName);
                       } catch (_) {
                         setState(() {
                           isLoading = false;
