@@ -23,6 +23,10 @@ class DBService {
     await _habits.doc(habit.hid).set(habit.toMap());
   }
 
+  Future<void> updateHabit(Habit habit) async {
+    await _habits.doc(habit.hid).set(habit.toMap());
+  }
+
   Future<void> updateHabitCompletionStatus(Habit habit) async {
     DateTime today = DateTime.now();
     DateFormat formatter = DateFormat('dd-MM-yyyy');

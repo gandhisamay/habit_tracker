@@ -4,6 +4,7 @@ import 'package:habit_app/constants/constants.dart';
 import 'package:habit_app/database/db_service.dart';
 import 'package:habit_app/models/habit.dart';
 import 'package:habit_app/screens/detailed/details.dart';
+import 'package:habit_app/shared/linear_progress_indicator.dart';
 
 class HabitCard extends StatefulWidget {
   final Habit habit;
@@ -15,7 +16,6 @@ class HabitCard extends StatefulWidget {
 }
 
 class _HabitCardState extends State<HabitCard> {
-  bool completed = false;
   final su = ScreenUtil();
 
   @override
@@ -32,17 +32,17 @@ class _HabitCardState extends State<HabitCard> {
               GestureDetector(
                 onTap: () async {
                   // Navigator.of(context).pop();
-                  setState(() {
-                    completed = !completed;
-                  });
+                  setState(() {});
                   await DBService().updateHabitCompletionStatus(widget.habit);
                 },
                 child: Container(
                   padding: EdgeInsets.all(5.0),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: completed ? darkPurple : Colors.transparent,
-                    border: completed
+                    color: widget.habit.isCompleted
+                        ? darkPurple
+                        : Colors.transparent,
+                    border: widget.habit.isCompleted
                         ? Border.all(
                             color: darkPurple,
                           )
@@ -52,7 +52,9 @@ class _HabitCardState extends State<HabitCard> {
                   ),
                   child: Icon(
                     Icons.check,
-                    color: completed ? Colors.white : Colors.grey[500],
+                    color: widget.habit.isCompleted
+                        ? Colors.white
+                        : Colors.grey[500],
                   ),
                 ),
               ),
@@ -96,13 +98,7 @@ class _HabitCardState extends State<HabitCard> {
               )
             ],
           ),
-          LinearProgressIndicator(
-            value: .71,
-            backgroundColor: Color(0xff1c232d),
-            valueColor: AlwaysStoppedAnimation(
-              cyan,
-            ),
-          ),
+          AnimatedLinearProgressIndicator(progress: 0.71)
         ],
       ),
     );

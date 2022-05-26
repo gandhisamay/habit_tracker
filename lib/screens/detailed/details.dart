@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_app/models/habit.dart';
 import 'package:habit_app/screens/detailed/widgets/beizer_curve.dart';
+import 'package:habit_app/screens/edit%20form%20/edit_form_screen.dart';
 
 class DetailsScreen extends StatelessWidget {
   static const routeName = '/details';
@@ -39,7 +40,11 @@ class DetailsScreen extends StatelessWidget {
                           ),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                                EditHabitFormScreen.routeName,
+                                arguments: habit);
+                          },
                           child: Container(
                             padding: EdgeInsets.all(5.0),
                             decoration: BoxDecoration(

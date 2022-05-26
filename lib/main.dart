@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_app/constants/constants.dart';
 import 'package:habit_app/screens/dashboard/dashboard.dart';
 import 'package:habit_app/screens/detailed/details.dart';
+import 'package:habit_app/screens/edit%20form%20/edit_form_screen.dart';
 import 'package:habit_app/screens/form%20screen/form_screen.dart';
 import 'package:habit_app/screens/login/login.dart';
 import 'package:habit_app/screens/onboarding/personal_details.dart';
@@ -58,7 +59,8 @@ class MyApp extends StatelessWidget {
                   PersonalDetailsScreen(),
               DashboardScreen.routeName: (context) => DashboardScreen(),
               DetailsScreen.routeName: (context) => DetailsScreen(),
-              NewHabitFormScreen.routeName: (context) => NewHabitFormScreen()
+              NewHabitFormScreen.routeName: (context) => NewHabitFormScreen(),
+              EditHabitFormScreen.routeName: (context) => EditHabitFormScreen(),
             },
           );
         });

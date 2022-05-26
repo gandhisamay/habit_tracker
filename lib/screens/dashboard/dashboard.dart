@@ -6,45 +6,13 @@ import 'package:habit_app/screens/dashboard/widgets/habit_card.dart';
 import 'package:habit_app/screens/form%20screen/form_screen.dart';
 import 'package:habit_app/shared/widgets/loading.dart';
 import 'package:intl/intl.dart';
-
-List<Map<String, dynamic>> habits1 = [
-  {
-    'color': Colors.blue,
-    'title': 'YP',
-    'fulltext': 'Yoga Practice',
-  },
-  {
-    'color': Colors.red,
-    'title': 'GE',
-    'fulltext': 'Get Up Early',
-  },
-  {
-    'color': Colors.cyan,
-    'title': 'NS',
-    'fulltext': 'No Sugar',
-  },
-];
-List<Map<String, dynamic>> habits2 = [
-  {
-    'color': Color(0xff7524ff),
-    'objectif': 'Learn 5 new words',
-    'progress': '5 from 7 this week'
-  },
-  {
-    'color': Color(0xfff03244),
-    'objectif': 'Get Up Early',
-    'progress': '5 from 7 this week'
-  },
-  {
-    'color': Color(0xff00d5e2),
-    'objectif': 'Create an App a day',
-    'progress': '6 from 7 this week'
-  },
-];
+import 'package:quiver/time.dart';
 
 class DashboardScreen extends StatelessWidget {
   static const routeName = '/dashboard';
   final su = ScreenUtil();
+  final DateTime today = DateTime.now();
+  final int maxDays = daysInMonth(DateTime.now().year, DateTime.now().month)-DateTime.now().day;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +66,19 @@ class DashboardScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: su.setHeight(35),
+                height: su.setHeight(5),
+              ),
+              Text(
+                "This Week",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: Colors.grey[500],
+                  fontSize: 16 * su.scaleText,
+                ),
+              ),
+              SizedBox(
+                height: su.setHeight(15),
               ),
               Container(
                 height: su.setHeight(90),
@@ -109,10 +89,10 @@ class DashboardScreen extends StatelessWidget {
                 ),
                 padding: EdgeInsets.all(15),
                 child: ListView.builder(
-                  itemCount: 7,
+                  itemCount: maxDays,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (ctx, f) {
-                    int day = DateTime.now().day + f;
+                    int day = today.day + f;
                     return FittedBox(
                       child: Container(
                         width: su.setWidth(90),
@@ -130,7 +110,7 @@ class DashboardScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              "${DateTime.now().day + f}",
+                              "${day}",
                               style: TextStyle(
                                 fontSize: 20 * su.scaleText,
                                 fontWeight: day == DateTime.now().day
