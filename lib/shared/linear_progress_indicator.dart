@@ -4,8 +4,9 @@ import 'package:habit_app/constants/constants.dart';
 
 class AnimatedLinearProgressIndicator extends StatefulWidget {
   final double progress;
+  final Color color;
 
-  AnimatedLinearProgressIndicator({required this.progress});
+  AnimatedLinearProgressIndicator({required this.progress, required this.color});
 
   @override
   State<AnimatedLinearProgressIndicator> createState() =>
@@ -44,7 +45,7 @@ class _AnimatedLinearProgressIndicatorState
             value: _animationController.value * widget.progress,
             backgroundColor: Color(0xff1c232d),
             valueColor: AlwaysStoppedAnimation(
-              cyan,
+              widget.color,
             ),
           ),
         );

@@ -13,8 +13,12 @@ class Habit {
 
   String get whichDays {
     String res = "";
-    for (int day in days) {
-      res += daysInWeek[day - 1] + ", ";
+    for (int i = 0; i < days.length; i++) {
+      if (i == days.length - 1) {
+        res += daysInWeek[days[i] - 1];
+      } else {
+        res += daysInWeek[days[i] - 1] + ", ";
+      }
     }
     return res;
   }
@@ -23,12 +27,12 @@ class Habit {
     DateTime today = DateTime.now();
     DateFormat formatter = DateFormat('dd-MM-yyyy');
     String formatted = formatter.format(today);
-
     return completedDays.contains(formatted);
   }
 
   double get progress {
     double progress = 0.0;
+    int totalDaysCompleted = 0;
 
     DateTime today = DateTime.now();
     // DateTime afterOneWeek
@@ -36,6 +40,25 @@ class Habit {
     DateFormat formatter = DateFormat('dd-MM-yyyy');
     String formatted = formatter.format(today);
 
+    //Day number of today
+    int day = today.weekday;
+
+    for (int i = 0; i < day; i++) {
+      String day = formatted.substring(0, 2);
+      int dayInt = int.parse(day) - i;
+
+      String remaining = formatted.substring(2);
+      String check = dayInt.toString() + remaining;
+      print(check);
+
+      if (completedDays.contains(check)) {
+        totalDaysCompleted++;
+      }
+    }
+
+    print(totalDaysCompleted);
+
+    progress = (totalDaysCompleted) / days.length;
     return progress;
   }
 

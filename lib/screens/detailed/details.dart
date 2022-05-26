@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_app/models/habit.dart';
 import 'package:habit_app/screens/detailed/widgets/beizer_curve.dart';
 import 'package:habit_app/screens/edit%20form%20/edit_form_screen.dart';
+import 'package:habit_app/shared/linear_progress_indicator.dart';
 
 class DetailsScreen extends StatelessWidget {
   static const routeName = '/details';
@@ -86,12 +87,9 @@ class DetailsScreen extends StatelessWidget {
                     SizedBox(
                       height: su.setHeight(15),
                     ),
-                    LinearProgressIndicator(
-                      value: .71,
-                      backgroundColor: Color(0xff1c232d),
-                      valueColor: AlwaysStoppedAnimation(
-                        Color(0xff701bff),
-                      ),
+                    AnimatedLinearProgressIndicator(
+                      progress: 0.71,
+                      color: Color(0xff701bff),
                     ),
                     SizedBox(
                       height: su.setHeight(35),

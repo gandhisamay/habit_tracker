@@ -98,7 +98,10 @@ class _HabitCardState extends State<HabitCard> {
               )
             ],
           ),
-          AnimatedLinearProgressIndicator(progress: 0.71)
+          AnimatedLinearProgressIndicator(
+            progress: widget.habit.progress,
+            color: cyan,
+          )
         ],
       ),
     );
