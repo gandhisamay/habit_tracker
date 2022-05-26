@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:habit_app/models/habit.dart';
+import 'package:habit_app/screens/detailed/widgets/beizer_curve.dart';
 
 class DetailsScreen extends StatelessWidget {
   static const routeName = '/details';
+  final su = ScreenUtil();
   @override
   Widget build(BuildContext context) {
+    final habit = ModalRoute.of(context)!.settings.arguments as Habit;
+    // HabitsController details = new HabitsController(habit: habit);
+
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -12,35 +19,35 @@ class DetailsScreen extends StatelessWidget {
             Flexible(
               flex: 3,
               child: Container(
-                padding: EdgeInsets.all(15.0),
+                padding: EdgeInsets.symmetric(horizontal: su.setWidth(15)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(
-                      height: 35.0,
+                      height: su.setHeight(35),
                     ),
                     Row(
                       children: <Widget>[
                         Expanded(
                           child: Text(
-                            "Learn 5 new words",
+                            habit.title!,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
-                              fontSize: 31,
+                              fontSize: 31 * su.scaleText,
                             ),
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.all(5.0),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.grey[700]!,
+                        InkWell(
+                          onTap: () {},
+                          child: Container(
+                            padding: EdgeInsets.all(5.0),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.grey[700]!,
+                              ),
                             ),
-                          ),
-                          child: InkWell(
-                            onTap: () {},
                             child: Icon(
                               Icons.edit,
                               color: Colors.grey[600],
@@ -50,17 +57,29 @@ class DetailsScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 15.0,
+                      height: su.setHeight(10),
                     ),
                     Text(
-                      "5 from 7 this week",
+                      habit.moreDetails!,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Colors.grey[500],
-                        fontSize: 21,
+                        fontSize: 16 * su.scaleText,
                       ),
                     ),
                     SizedBox(
-                      height: 11.0,
+                      height: su.setHeight(11.0),
+                    ),
+                    Text(
+                      "Progress",
+                      style: TextStyle(
+                        fontSize: 21 * su.scaleText,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: su.setHeight(15),
                     ),
                     LinearProgressIndicator(
                       value: .71,
@@ -70,178 +89,49 @@ class DetailsScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 35.0,
+                      height: su.setHeight(35),
                     ),
                     Text(
-                      "Strength",
+                      "Repeat",
                       style: TextStyle(
-                        color: Colors.grey[500],
-                        fontSize: 21,
+                        fontSize: 21 * su.scaleText,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(
-                      height: 15.0,
+                      height: su.setHeight(15),
                     ),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            "75%",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 31,
-                            ),
-                          ),
-                        ),
-                        CircularProgressIndicator(
-                          value: .73,
-                          backgroundColor: Colors.grey[600],
-                          valueColor: AlwaysStoppedAnimation(
-                            Color(0xff701bff),
-                          ),
-                        )
-                      ],
-                    ),
-                    Container(
-                      color: Colors.grey[500],
-                      height: 1.0,
-                    ),
-                    SizedBox(height: 35),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: List.generate(
-                        3,
-                        (f) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                f == 0
-                                    ? "Repeat"
-                                    : f == 1
-                                        ? "Streak"
-                                        : "Best",
-                                style: TextStyle(
-                                  color: Colors.grey[500],
-                                  fontSize: 17,
-                                ),
-                              ),
-                              SizedBox(height: 9),
-                              Text(
-                                f == 0
-                                    ? "Every Day"
-                                    : f == 1
-                                        ? "8 Days"
-                                        : "11 Days",
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              )
-                            ],
-                          );
-                        },
+                    Text(
+                      habit.whichDays,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                        fontSize: 16 * su.scaleText,
                       ),
-                    )
+                    ),
+                    // Divider(
+                    //   color: Colors.grey[500],
+                    //   height: 1.0,
+                    // ),
+                    // SizedBox(height: 35),
                   ],
                 ),
               ),
             ),
-            // Flexible(
-            //   flex: 2,
-            //   child: Transform.rotate(
-            //     angle: 3.14,
-            //     child: CustomPaint(
-            //       child: MyBezierCurve(),
-            //       painter: CurvePath(),
-            //     ),
-            //   ),
-            // ),
+            Flexible(
+              flex: 2,
+              child: Transform.rotate(
+                angle: 3.14,
+                child: CustomPaint(
+                  child: MyBezierCurve(),
+                  painter: CurvePath(),
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-// class CurvePath extends CustomPainter {
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     var paint = Paint();
-
-//     paint.color = Color(0xff701dff);
-//     paint.style = PaintingStyle.stroke;
-//     paint.strokeWidth = 5;
-
-//     var path = Path();
-
-//     path.moveTo(0, size.height * 0.50);
-//     path.quadraticBezierTo(size.width * 0.10, size.height * 0.80,
-//         size.width * 0.15, size.height * 0.60);
-//     path.quadraticBezierTo(size.width * 0.20, size.height * 0.45,
-//         size.width * 0.27, size.height * 0.60);
-//     path.quadraticBezierTo(
-//         size.width * 0.45, size.height, size.width * 0.50, size.height * 0.80);
-//     path.quadraticBezierTo(size.width * 0.55, size.height * 0.45,
-//         size.width * 0.75, size.height * 0.75);
-//     path.quadraticBezierTo(
-//         size.width * 0.85, size.height * 0.93, size.width, size.height * 0.60);
-
-//     path.moveTo(size.width, 0);
-//     canvas.drawPath(path, paint);
-//   }
-
-//   @override
-//   bool shouldRepaint(CustomPainter oldDelegate) {
-//     return false;
-//   }
-// }
-
-// class MyBezierCurve extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return ClipPath(
-//       clipper: ClippingClass(),
-//       child: Container(
-//         decoration: BoxDecoration(
-//           gradient: LinearGradient(
-//             begin: Alignment.topCenter,
-//             end: Alignment.bottomCenter,
-//             colors: [
-//               Color(0xff221b4c),
-//               Color(0xff151b2b),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class ClippingClass extends CustomClipper<Path> {
-//   @override
-//   Path getClip(Size size) {
-//     var path = new Path();
-//     path.lineTo(0, size.height * 0.50);
-//     path.quadraticBezierTo(size.width * 0.10, size.height * 0.80,
-//         size.width * 0.15, size.height * 0.60);
-
-//     path.quadraticBezierTo(size.width * 0.20, size.height * 0.45,
-//         size.width * 0.27, size.height * 0.60);
-
-//     path.quadraticBezierTo(
-//         size.width * 0.45, size.height, size.width * 0.50, size.height * 0.80);
-//     path.quadraticBezierTo(size.width * 0.55, size.height * 0.45,
-//         size.width * 0.75, size.height * 0.75);
-//     path.quadraticBezierTo(
-//         size.width * 0.85, size.height * 0.93, size.width, size.height * 0.60);
-//     path.lineTo(size.width, 0);
-//     path.close();
-//     return path;
-//   }
-
-//   @override
-//   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
-// }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habit_app/constants/constants.dart';
+import 'package:habit_app/database/db_service.dart';
 import 'package:habit_app/models/habit.dart';
 import 'package:habit_app/screens/detailed/details.dart';
 
@@ -14,6 +16,8 @@ class HabitCard extends StatefulWidget {
 
 class _HabitCardState extends State<HabitCard> {
   bool completed = false;
+  final su = ScreenUtil();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,11 +30,12 @@ class _HabitCardState extends State<HabitCard> {
           Row(
             children: <Widget>[
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   // Navigator.of(context).pop();
                   setState(() {
                     completed = !completed;
                   });
+                  await DBService().updateHabitCompletionStatus(widget.habit);
                 },
                 child: Container(
                   padding: EdgeInsets.all(5.0),
@@ -54,7 +59,8 @@ class _HabitCardState extends State<HabitCard> {
               SizedBox(width: 15),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed(DetailsScreen.routeName);
+                  Navigator.of(context).pushNamed(DetailsScreen.routeName,
+                      arguments: widget.habit);
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,9 +76,17 @@ class _HabitCardState extends State<HabitCard> {
                     SizedBox(
                       height: 3,
                     ),
-                    Text(
-                      widget.habit.moreDetails!,
-                      style: TextStyle(color: Colors.grey[500], fontSize: 17),
+                    LimitedBox(
+                      maxWidth: su.setWidth(230),
+                      child: Text(
+                        widget.habit.moreDetails!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.grey[500],
+                          fontSize: 12 * su.scaleText,
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: 15,

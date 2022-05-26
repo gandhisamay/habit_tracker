@@ -6,7 +6,6 @@ import 'package:habit_app/database/db_service.dart';
 import 'package:habit_app/models/habit.dart';
 import 'package:habit_app/providers/auth_provider.dart';
 import 'package:habit_app/screens/dashboard/dashboard.dart';
-import 'package:habit_app/shared/widgets/loading.dart';
 
 class NewHabitFormScreen extends StatefulWidget {
   static const routeName = '/new-habit-form';
