@@ -27,6 +27,10 @@ class DBService {
     await _habits.doc(habit.hid).set(habit.toMap());
   }
 
+  Future<void> deleteHabit(Habit habit) async {
+    await _habits.doc(habit.hid).delete();
+  }
+
   Future<void> updateHabitCompletionStatus(Habit habit) async {
     DateTime today = DateTime.now();
     DateFormat formatter = DateFormat('dd-MM-yyyy');

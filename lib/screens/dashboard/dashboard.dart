@@ -12,7 +12,8 @@ class DashboardScreen extends StatelessWidget {
   static const routeName = '/dashboard';
   final su = ScreenUtil();
   final DateTime today = DateTime.now();
-  final int maxDays = daysInMonth(DateTime.now().year, DateTime.now().month)-DateTime.now().day;
+  final int maxDays = daysInMonth(DateTime.now().year, DateTime.now().month) -
+      DateTime.now().day;
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +150,9 @@ class DashboardScreen extends StatelessWidget {
                   return ListView.builder(
                     itemCount: habits.length,
                     itemBuilder: (ctx, index) {
-                      return HabitCard(habit: habits[index]);
+                      return HabitCard(
+                        habit: habits[index],
+                      );
                     },
                   );
                 }, loading: () {
