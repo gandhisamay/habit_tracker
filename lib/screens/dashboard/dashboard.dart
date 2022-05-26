@@ -129,12 +129,13 @@ class DashboardScreen extends StatelessWidget {
                                 ),
                               ),
                               style: TextStyle(
-                                  color: day == DateTime.now().day
-                                      ? Colors.white
-                                      : Colors.grey[700],
-                                  fontWeight: day == DateTime.now().day
-                                      ? FontWeight.bold
-                                      : FontWeight.normal),
+                                color: day == DateTime.now().day
+                                    ? Colors.white
+                                    : Colors.grey[700],
+                                fontWeight: day == DateTime.now().day
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
                             )
                           ],
                         ),

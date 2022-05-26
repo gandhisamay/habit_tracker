@@ -88,7 +88,7 @@ class DetailsScreen extends StatelessWidget {
                       height: su.setHeight(15),
                     ),
                     AnimatedLinearProgressIndicator(
-                      progress: 0.71,
+                      progress: habit.progress,
                       color: Color(0xff701bff),
                     ),
                     SizedBox(
